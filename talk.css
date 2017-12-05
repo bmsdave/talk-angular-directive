@@ -1,0 +1,83 @@
+#intro {
+	background: rgba(0,0,0,.7);
+	padding: 0;
+	border: 0;
+}
+
+#intro h1 {
+	width: 60%;
+	min-height: 500px;
+	margin: 5% auto 0;
+}
+
+#intro .attribution {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	font-size: 100%;
+	line-height: .3;
+	color: gray;
+	text-shadow: none;
+	background: url(img/background.png) bottom;
+	padding:.6em 0 0;
+	overflow: hidden;
+}
+
+
+#css-controls-demo label {
+	display: block;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:0) {
+/* hack to avoid using the Object element in Safari/WebKit, due to WebKit Bug 27190 */
+	object[type="image/svg+xml"] {
+		display: none;
+	}
+	
+	#intro h1 {
+		background: url(logo.svg) no-repeat center;
+		background-size:100% auto;
+	}
+}
+
+.red {
+	color: red;
+	font-weight: bolder;
+}
+
+.twoem {
+	font-size: 2em;
+}
+
+img.csp {
+	height: 1024px
+}
+
+table {
+	border-collapse: separate;
+	margin: 30px auto;
+	text-align: left;
+	width: 100%;
+}	
+
+td {
+	border: none;
+	padding: 10px 15px;
+	position: relative;
+	transition: all 300ms;
+}
+
+tr:nth-child(odd) td {
+	background: #313131
+}
+
+code.directive {
+	white-space: nowrap;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+    box-shadow: none;
+    text-shadow: none;
+}

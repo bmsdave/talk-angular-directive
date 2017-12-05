@@ -1,0 +1,62 @@
+Разница между compile, controller и link в директивах AngularJS, когда что нужно использовать?
+
+2. http://odetocode.com/blogs/scott/archive/2014/05/28/compile-pre-and-post-linking-in-angularjs.aspx
+
+simple directive = http://plnkr.co/edit/HCFzn8fR5ohgTwp2YWhv?p=preview
+
+1. Последовательность выполнения:
+    1. compile
+    2. controller
+    3. compile-pre
+    4. compile-post
+https://plnkr.co/edit/UKKyjZ?p=preview
+https://plnkr.co/edit/JECF5i?p=preview
+http://jasonmore.net/angular-js-directives-difference-controller-link/
+
+
+1.5. Контроллер директивы vs контроллер вида
+Вопрос на засыпку. Чем отличается контроллер директивы, от контроллера вида, который мы указываем через ng-controller (или другим способом)?
+Да ничем.
+
+1.7. Контроллер директивы vs link
+http://plnkr.co/edit/f6wHTbVU3RpAJhGfOxFR?p=preview
+
+Во-первых, она вызывается позже контроллера. Последовательность вызовов такая: controller, preLink, postLink (postLink это и есть link. Подробнее в документации). Контроллер срабатывает даже раньше чем инициализируются директивы вложенных элементов. Поэтому в $scope, например, можно записать настройки для дочерних директив.
+
+Во-вторых, в link передается ссылка на контроллер.
+
+В-третьих, link всегда привязана к директиве, в то время как контроллер может быть общим. Думаю, в этом ключевое отличие.
+
+2.
+( http://plnkr.co/edit/lqcoJj?p=preview )
+
+в контроллер scope приходит через Dependency Injection (
+“Am I just doing template and scope things?” – goes into controller
+“Am I adding some coolbeans jquery library?” – goes in link
+
+https://plnkr.co/edit/SHOe0O?p=preview
+
+3. так зачем вообще использовать контроллеры?
+So we can do awesome stuff like using one directives controller in another. We simply set something we want to “this” and get it using the “require” option in the directive.
+
+https://plnkr.co/edit/CxITXN?p=preview
+
+5. Где использовать контроллеры
+
+xxx. прмер с fixed-header
+https://github.com/daniel-nagy/fixed-table-header/blob/master/src/fixed-table-header.js
+
+http://codepen.io/bmsdave-1471718672/pen/pEdELr?editors=0010
+
+Можно выделить два случая использования контроллеров: разделение общих методов между разными директивами, как работает, например, ngModelController в Ангуляре, и использование вложенными директивами данных родительской директивы, как работают табы, карусели и т.п., где есть родитель-контейнер и вложенные элементы. Если в первом случае контроллер работает как набор абстрактных методов, то во втором — может хранить в себе ссылку на список элементов, номер активного элемента, общее количество элементов и другую общую информацию. Конечно, для этой цели допустимо использование $scope, но, очевидно, оно будет не по назначению, т.к. область видимости нужна прежде всего для связывания контроллера с видом, а не для разделения общих данных.
+
+В link же содержится индивидуальная логика директивы, поэтому весь код не предназначенный для общего использования помещайте туда.
+
+некоторые считают контроллеры синтакцическим сахаром к $compile
+
+
+<li><a href="https://docs.angularjs.org/api/ng/service/$compile">https://docs.angularjs.org/api/ng/service/$compile</a>
+<li><a href="https://habrahabr.ru/post/232023/">https://habrahabr.ru/post/232023/</a>
+<li><a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#controllers">https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#controllers</a>
+<li><a href="http://jasonmore.net/angular-js-directives-difference-controller-link/">http://jasonmore.net/angular-js-directives-difference-controller-link/</a>
+<li><a href="http://stackoverflow.com/questions/15676614/angularjs-link-vs-compile-vs-controller">http://stackoverflow.com/questions/15676614/angularjs-link-vs-compile-vs-controller</a>
